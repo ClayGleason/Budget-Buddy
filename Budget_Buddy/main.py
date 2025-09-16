@@ -1,16 +1,28 @@
-# This is a sample Python script.
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 
-# Press Ctrl+F5 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+app = Flask(__name__)
+app.secret_key = "fdsfdf"
+
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+@app.route('/summary', methods=["POST"])
+def summary():
+    income = request.form['income']
+    expense = request.form['expense']
+    if income and expense:
+        session['income'] = income
+        session['expense'] = expense
+        return render_template('summary.html', income=income, expense=expense)
+
+    return redirect(url_for('index'))
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press F9 to toggle the breakpoint.
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html')
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    app.run(debug=True)

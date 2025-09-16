@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% extends 'layout.html' %}
+
+    {% block content %}
+    <div>
+        <h1>Welcome to the Buddy Budget</h1>
+
+        <form action="/summary" method="post">
+            <label for="income">Income</label>
+            <input type="text" id="income" name="income">
+
+            <label for="expense">Expense</label>
+            <input type="text" id="expense" name="expense">
+
+            <input type="submit" value="Submit Me">
+        </form>
+
+    </div>
+
+    {% endblock %}
+</body>
+</html>
