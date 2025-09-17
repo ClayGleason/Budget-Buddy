@@ -1,36 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    {% extends 'base.html' %}
+{% block content %}
+<div>
+    <h1>Welcome to the Buddy Budget</h1>
+    <p>This program is designed to track your personal budget. Simply enter your income and expenses as well as their descriptions.</p>
 
-    {% block content %}
-    <div>
-        <h1>Welcome to the Buddy Budget</h1>
-        <p>This program is designed to track your personal budget.  Simply enter your income and expenses as well as their descriptions</p>
+    <form action="/summary" method="post">
+        <label for="income">Income</label>
+        <input type="text" id="income" name="income">
 
-        <form action="/summary" method="post">
-            <label for="income">Income</label>
-            <input type="text" id="income" name="income">
+        <label for="income_desc">Income Description:</label>
+        <input type="text" id="income_desc" name="income_desc">
 
-            <label for="income_desc">Income Description:</label>
-            <input type="text" id="income_desc" name="income_desc">
+        <label for="expense">Expense</label>
+        <input type="text" id="expense" name="expense">
 
-            <label for="expense">Expense</label>
-            <input type="text" id="expense" name="expense">
+        <label for="expense_desc">Expense Description:</label>
+        <input type="text" id="expense_desc" name="expense_desc">
 
-            <label for="expense_desc">Expense Description</label>
-            <input type="text" id="expense_desc" name="expense_desc">
-
-            <input type="submit" value="Submit">
-        </form>
-
-    </div>
-
-    {% endblock %}
-</body>
-</html>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}
+}

@@ -1,36 +1,61 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+import flask
+from models import IncomeEntry, ExpenseEntry, BudgetManager
 
-from Budget_Buddy.Entry import IncomeEntry, ExpenseEntry
-
-app = Flask(__name__)
+app = flask.Flask(__name__)
 app.secret_key = "fdsfdf"
+
+# single budget manager instance
+budget = BudgetManager()
+
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return flask.render_template("index.html")
 
 @app.route('/summary', methods=["POST"])
 def summary():
-    income = request.form['income']
-    expense = request.form['expense']
-    income_desc = request.form['income_desc']
-    expense_desc = request.form['expense_desc']
-    if income and expense:
-        if income_desc == "":
-            income_desc = "Item Description Unfilled"
-        if expense_desc == "":
-            expense_desc = "Expense Description Unfilled"
-        new_income_entry = IncomeEntry(income_desc, income)
-        new_expense_entry = ExpenseEntry(expense_desc, expense)
+    income = flask.request.form.get('income')
+    expense = flask.request.form.get('expense')
+    income_desc = flask.request.form.get('income_desc', '').strip()
+    expense_desc = flask.request.form.get('expense_desc', '').strip()
 
-        return render_template('summary.html', new_income_entry=new_income_entry, new_expense_entry=new_expense_entry)
+    # Convert safely
+    try:
+        income = float(income) if income else 0
+    except ValueError:
+        income = 0
+    try:
+        expense = float(expense) if expense else 0
+    except ValueError:
+        expense = 0
 
-    return redirect(url_for('index'))
+    if income > 0:
+        if not income_desc:
+            income_desc = "Income (no description)"
+        budget.add_income(IncomeEntry(income_desc, income))
 
+    if expense > 0:
+        if not expense_desc:
+            expense_desc = "Expense (no description)"
+        budget.add_expense(ExpenseEntry(expense_desc, expense))
+
+    return flask.render_template(
+        'summary.html',
+        incomes=budget.incomes,
+        expenses=budget.expenses,
+        total_income=budget.get_total_income(),
+        total_expense=budget.get_total_expense(),
+        net_total=budget.get_net_total()
+    )
+
+@app.route('/reset')
+def reset():
+    global budget
+    budget = BudgetManager()
+    return flask.redirect(flask.url_for('index'))
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('404.html')
-
+    return flask.render_template('404.html'), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

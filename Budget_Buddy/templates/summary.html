@@ -1,27 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 
-    {% block content %}
-        <div>
-            <ul>
-            {% for income_details in income_list %}
-                <li> {{ income_details }}</li>
-                {% endfor %}
-            </ul>
+{% block content %}
+<div>
+    <h1>Budget Summary</h1>
 
-            <h1>Summary goes here</h1>
-            <h2>Income Description: {{ income_desc }}</h2>
-            <h2>Income Amount: {{ income }}</h2>
-            <h2>Expense Description: {{ expense_desc }}</h2>
-            <h2>Expense Amount: {{ expense }}</h2>
-        </div>
+    <h2>Incomes</h2>
+    <ul>
+        {% for income in incomes %}
+            <li>{{ income.description }}: ${{ income.amount }}</li>
+        {% else %}
+            <li>No incomes recorded yet</li>
+        {% endfor %}
+    </ul>
 
-    {% endblock %}
-</body>
-</html>
+    <h2>Expenses</h2>
+    <ul>
+        {% for expense in expenses %}
+            <li>{{ expense.description }}: ${{ expense.amount }}</li>
+        {% else %}
+            <li>No expenses recorded yet</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Total Income: ${{ total_income }}</h2>
+    <h2>Total Expenses: ${{ total_expense }}</h2>
+    <h2>Net Total: ${{ net_total }}</h2>
+
+    <a href="{{ url_for('index') }}">Go back</a>
+    <a href="{{ url_for('reset') }}">Clear Budget</a>
+</div>
+{% endblock %}

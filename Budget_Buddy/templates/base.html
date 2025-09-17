@@ -2,28 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Buddy Budget</title>
 </head>
-    <header style="background-color: coral">
-        <nav>
-            <ul style="list-style-type: none; padding: 0;">
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('summary') }}">Budget Summary</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    {% block content %}
-
-    {% endblock %}
-
-    <footer>
-        <p>Copyright 2025 Budget Buddy</p>
-        <div>
-            <a href="#"></a>
-        </div>
-    </footer>
 <body>
-
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
