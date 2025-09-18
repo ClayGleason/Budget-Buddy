@@ -6,7 +6,7 @@
 
     <h2>Incomes</h2>
     <ul>
-        {% for income in incomes %}
+        {% for income in session['incomes'] %}
             <li>{{ income.description }}: ${{ income.amount | format_price }}</li>
         {% else %}
             <li>No incomes recorded yet</li>
@@ -15,16 +15,16 @@
 
     <h2>Expenses</h2>
     <ul>
-        {% for expense in expenses %}
+        {% for expense in session['expenses'] %}
             <li>{{ expense.description }}: ${{ expense.amount | format_price }}</li>
         {% else %}
             <li>No expenses recorded yet</li>
         {% endfor %}
     </ul>
 
-    <h2>Total Income: ${{ total_income | format_price }}</h2>
-    <h2>Total Expenses: ${{ total_expense | format_price }}</h2>
-    <h2>Net Total: ${{ net_total | format_price }}</h2>
+    <h2>Total Income: ${{ session['total_income'] | format_price }}</h2>
+    <h2>Total Expenses: ${{ session['total_expense'] | format_price }}</h2>
+    <h2>Net Total: ${{ session['net_total'] | format_price }}</h2>
 
     <a href="{{ url_for('reset') }}">Clear Budget</a>
     <a href="{{ url_for('index') }}">Go back</a>

@@ -5,7 +5,7 @@ body {
 #nav_bar {
     display: flex;
     justify-content: space-between;
-    background-color: lightblue;
+    background-color: lightsteelblue;
     margin-left: 20px;
     margin-right: 20px;
     border: black 2px solid;
