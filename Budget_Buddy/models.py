@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 
+def format_price(value):
+    return f"{value:,.2f}"
+
 class Entry(ABC):
     def __init__(self, description: str, amount: float):
         self.description = description

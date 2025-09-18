@@ -1,11 +1,27 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Buddy Budget</title>
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
-<body>
+    <header>
+        <nav id="nav_bar">
+            <h2>Buddy Budget</h2>
+            <ul style="list-style-type: none; padding: 2px;">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('summary') }}">Budget Summary</a></li>
+            </ul>
+        </nav>
+    </header>
+
     {% block content %}
+
     {% endblock %}
+
+    <footer id="footer">
+        <p>Copyright 2025 Budget Buddy</p>
+        <p>Created by Laillah Zainath & Clay Gleason</p>
+    </footer>
+<body>
+
 </body>
-</html>

@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
+<div id="sum_container">
     <h1>Budget Summary</h1>
 
     <h2>Incomes</h2>
     <ul>
         {% for income in incomes %}
-            <li>{{ income.description }}: ${{ income.amount }}</li>
+            <li>{{ income.description }}: ${{ income.amount | format_price }}</li>
         {% else %}
             <li>No incomes recorded yet</li>
         {% endfor %}
@@ -16,17 +16,17 @@
     <h2>Expenses</h2>
     <ul>
         {% for expense in expenses %}
-            <li>{{ expense.description }}: ${{ expense.amount }}</li>
+            <li>{{ expense.description }}: ${{ expense.amount | format_price }}</li>
         {% else %}
             <li>No expenses recorded yet</li>
         {% endfor %}
     </ul>
 
-    <h2>Total Income: ${{ total_income }}</h2>
-    <h2>Total Expenses: ${{ total_expense }}</h2>
-    <h2>Net Total: ${{ net_total }}</h2>
+    <h2>Total Income: ${{ total_income | format_price }}</h2>
+    <h2>Total Expenses: ${{ total_expense | format_price }}</h2>
+    <h2>Net Total: ${{ net_total | format_price }}</h2>
 
-    <a href="{{ url_for('index') }}">Go back</a>
     <a href="{{ url_for('reset') }}">Clear Budget</a>
+    <a href="{{ url_for('index') }}">Go back</a>
 </div>
 {% endblock %}

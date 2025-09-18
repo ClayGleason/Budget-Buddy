@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
+<div id="index_container">
     <h1>Welcome to the Buddy Budget</h1>
     <p>This program is designed to track your personal budget. Simply enter your income and expenses as well as their descriptions.</p>
 
-    <form action="/summary" method="post">
+    <form action="/summary" method="post" id="form_container">
         <label for="income">Income</label>
         <input type="text" id="income" name="income">
 

@@ -1,8 +1,9 @@
 import flask
-from models import IncomeEntry, ExpenseEntry, BudgetManager
+from models import IncomeEntry, ExpenseEntry, BudgetManager, format_price
 
 app = flask.Flask(__name__)
 app.secret_key = "fdsfdf"
+app.jinja_env.filters["format_price"] = format_price
 
 # single budget manager instance
 budget = BudgetManager()
@@ -11,7 +12,7 @@ budget = BudgetManager()
 def index():
     return flask.render_template("index.html")
 
-@app.route('/summary', methods=["POST"])
+@app.route('/summary', methods=["GET", "POST"])
 def summary():
     income = flask.request.form.get('income')
     expense = flask.request.form.get('expense')
