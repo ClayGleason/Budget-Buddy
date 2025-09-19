@@ -55,7 +55,7 @@ def summary():
             flask.session['net_total'] = budget_manager.get_net_total()
 
             return flask.render_template('summary.html')
-        return flask.redirect(flask.url_for('summary'))
+        return flask.redirect(flask.url_for('index'))
 
     if flask.request.method == "GET":
         return flask.render_template('summary.html')
