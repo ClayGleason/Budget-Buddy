@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+# jinja custom function
 def format_price(value):
     if value:
         return f"{value:,.2f}"

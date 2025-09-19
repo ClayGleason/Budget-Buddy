@@ -1,13 +1,10 @@
 import flask
-
-
 from models import IncomeEntry, ExpenseEntry, BudgetManager, format_price
 
 app = flask.Flask(__name__)
 app.secret_key = "fdsfdf"
 app.jinja_env.filters["format_price"] = format_price
 
-# single budget manager instance
 budget_manager = BudgetManager()
 expense_list = []
 income_list = []
@@ -46,15 +43,10 @@ def summary():
             expense_entry = ExpenseEntry(expense_desc, expense)
             budget_manager.add_expense(ExpenseEntry(expense_desc, expense))
 
-        print(income_list)
-        print(expense_list)
-
         if income and expense:
             income_list.append({ "description": income_entry.description, "amount": income_entry.amount })
 
-            print(income_list)
             expense_list.append({ "description": expense_entry.description, "amount": expense_entry.amount })
-            print(expense_list)
 
             flask.session['incomes'] = income_list
             flask.session['expenses'] = expense_list
@@ -74,10 +66,7 @@ def reset():
     budget_manager = BudgetManager()
     income_list = []
     expense_list = []
-    flask.session.pop('incomes', None)
-    flask.session.pop('expenses', None)
     flask.session.clear()
-    print(flask.session)
     return flask.redirect(flask.url_for('index'))
 
 @app.errorhandler(404)
